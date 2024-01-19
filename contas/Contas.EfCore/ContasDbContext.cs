@@ -15,7 +15,7 @@ public class ContasDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Model.GetEntityTypes()
-            .Select(entityType => builder.Entity(entityType.ClrType).ToTable(entityType.ClrType.Name.ToKebabCase()))
+            .Select(entityType => builder.Entity(entityType.ClrType).ToTable(entityType.ClrType.Name.ToSnakeCase()))
             .ToArray();
 
         base.OnModelCreating(builder);
@@ -24,22 +24,22 @@ public class ContasDbContext : DbContext
         {            
             foreach(var property in entity.GetProperties())
             {
-                property.SetColumnName(property.Name.ToKebabCase());
+                property.SetColumnName(property.Name.ToSnakeCase());
             }
 
             foreach(var key in entity.GetKeys())
             {
-                key.SetName(key.GetName().ToKebabCase());
+                key.SetName(key?.GetName()?.ToSnakeCase());
             }
 
             foreach(var key in entity.GetForeignKeys())
             {
-                key.SetConstraintName(key.GetConstraintName().ToKebabCase());
+                key.SetConstraintName(key.GetConstraintName()?.ToSnakeCase());
             }
 
             foreach(var index in entity.GetIndexes())
             {
-                index.SetName(index.Name.ToKebabCase());
+                index.SetName(index.Name.ToSnakeCase());
             }
         }
     }

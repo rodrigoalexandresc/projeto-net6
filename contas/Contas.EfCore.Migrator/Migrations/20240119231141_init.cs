@@ -11,16 +11,16 @@ namespace Contas.EfCore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "tipo-lancamento",
+                name: "tipo_lancamento",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    descricao = table.Column<string>(type: "text", nullable: false)
+                    descricao = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_tipo-lancamento", x => x.id);
+                    table.PrimaryKey("pk_tipo_lancamento", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -29,25 +29,25 @@ namespace Contas.EfCore.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    descricao = table.Column<string>(type: "text", nullable: false),
-                    tipolancamentoid = table.Column<int>(name: "tipo-lancamento-id", type: "integer", nullable: false),
+                    descricao = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    tipo_lancamento_id = table.Column<int>(type: "integer", nullable: false),
                     data = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_lancamento", x => x.id);
                     table.ForeignKey(
-                        name: "fk_lancamento_tipo-lancamento_tipo-lancamento-id",
-                        column: x => x.tipolancamentoid,
-                        principalTable: "tipo-lancamento",
+                        name: "fk_lancamento_tipo_lancamento_tipo_lancamento_id",
+                        column: x => x.tipo_lancamento_id,
+                        principalTable: "tipo_lancamento",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_lancamento_tipo-lancamento-id",
+                name: "IX_lancamento_tipo_lancamento_id",
                 table: "lancamento",
-                column: "tipo-lancamento-id");
+                column: "tipo_lancamento_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -56,7 +56,7 @@ namespace Contas.EfCore.Migrations
                 name: "lancamento");
 
             migrationBuilder.DropTable(
-                name: "tipo-lancamento");
+                name: "tipo_lancamento");
         }
     }
 }

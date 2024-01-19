@@ -43,7 +43,7 @@ namespace Contas.EfCore.Migrations
 
                     b.Property<int>("TipoLancamentoId")
                         .HasColumnType("integer")
-                        .HasColumnName("tipo-lancamento-id");
+                        .HasColumnName("tipo_lancamento_id");
 
                     b.HasKey("Id")
                         .HasName("pk_lancamento");
@@ -69,9 +69,9 @@ namespace Contas.EfCore.Migrations
                         .HasColumnName("descricao");
 
                     b.HasKey("Id")
-                        .HasName("pk_tipo-lancamento");
+                        .HasName("pk_tipo_lancamento");
 
-                    b.ToTable("tipo-lancamento", (string)null);
+                    b.ToTable("tipo_lancamento", (string)null);
                 });
 
             modelBuilder.Entity("Contas.Lancamento", b =>
@@ -81,7 +81,7 @@ namespace Contas.EfCore.Migrations
                         .HasForeignKey("TipoLancamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_lancamento_tipo-lancamento_tipo-lancamento-id");
+                        .HasConstraintName("fk_lancamento_tipo_lancamento_tipo_lancamento_id");
 
                     b.Navigation("TipoLancamento");
                 });
